@@ -3,15 +3,23 @@ package main
 import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/joho/godotenv"
+	"github.com/robbiekes/tg_bot/internal/clients/open_weather_map"
 	"github.com/robbiekes/tg_bot/internal/controller/commander"
-	"github.com/robbiekes/tg_bot/internal/service/product"
+	"github.com/robbiekes/tg_bot/internal/service/weather"
 	"log"
+	"net/http"
 	"os"
 )
 
 func main() {
 	godotenv.Load()
 
+	// API init
+	apikey := os.Getenv("API_URL")
+
+	wapi := open_weather_map.NewWeatherAPI(http.DefaultClient, apikey)
+
+	// bot init
 	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_API_TOKEN"))
 	if err != nil {
 		log.Panic(err)
@@ -23,8 +31,8 @@ func main() {
 		Timeout: 60,
 	}
 
-	productService := product.NewService()
-	commandHandler := commander.NewCommander(bot, productService)
+	weatherService := weather.NewWeatherService(wapi)
+	commandHandler := commander.NewCommander(bot, weatherService)
 
 	updates := bot.GetUpdatesChan(u)
 

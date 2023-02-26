@@ -3,14 +3,13 @@ package commander
 import (
 	"errors"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"github.com/robbiekes/tg_bot/internal/service/product"
 )
 
-func NewCommander(bot *tgbotapi.BotAPI, products *product.Service) *Commander {
+func NewCommander(bot *tgbotapi.BotAPI, weather WeatherService) *Commander {
 	c := &Commander{
-		bot:            bot,
-		productService: products,
-		commands:       make(map[string]func(*tgbotapi.Message) error),
+		bot:      bot,
+		weather:  weather,
+		commands: make(map[string]func(*tgbotapi.Message) error),
 	}
 
 	c.initCommands()
@@ -53,6 +52,5 @@ func (c *Commander) HandleUpdate(update tgbotapi.Update) error {
 
 func (c *Commander) initCommands() {
 	c.commands["help"] = c.Help
-	c.commands["list"] = c.List
-	c.commands["get"] = c.Get
+	c.commands["today"] = c.WeatherToday
 }
