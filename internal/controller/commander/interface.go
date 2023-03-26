@@ -1,5 +1,5 @@
 package commander
 
 type WeatherService interface {
-	GetCurrentWeather()
+	GetCurrentWeather() (string, error)
 }

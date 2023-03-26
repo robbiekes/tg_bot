@@ -52,5 +52,5 @@ func (c *Commander) HandleUpdate(update tgbotapi.Update) error {
 
 func (c *Commander) initCommands() {
 	c.commands["help"] = c.Help
-	c.commands["today"] = c.WeatherToday
+	c.commands["now"] = c.WeatherNow
 }

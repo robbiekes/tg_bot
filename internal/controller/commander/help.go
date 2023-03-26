@@ -6,11 +6,9 @@ import (
 )
 
 func (c *Commander) Help(inputMessage *tgbotapi.Message) error {
-	text := "/today - open_weather_map for today\n" +
-		"/week - open_weather_map for a week\n" +
-		"/clothes - open_weather_map for today with clothes recommendations\n" +
-		"/list - list all products\n" +
-		"/get - get a product by id (example: /get 1)"
+	text := "/now - weather for now\n" +
+		"/week - weather for a week\n" +
+		"/clothes - weather for now with clothes recommendations\n"
 
 	msg := tgbotapi.NewMessage(inputMessage.Chat.ID, text)
 

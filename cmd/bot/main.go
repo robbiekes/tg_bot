@@ -15,8 +15,7 @@ func main() {
 	godotenv.Load()
 
 	// API init
-	apikey := os.Getenv("API_URL")
-
+	apikey := os.Getenv("OWM_API_KEY")
 	wapi := open_weather_map.NewWeatherAPI(http.DefaultClient, apikey)
 
 	// bot init

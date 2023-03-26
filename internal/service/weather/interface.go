@@ -1,5 +1,5 @@
 package weather
 
 type WeatherClient interface {
-	GetCurrectWeather()
+	GetCurrentWeather() (string, error)
 }
